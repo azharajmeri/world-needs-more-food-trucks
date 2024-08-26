@@ -73,7 +73,7 @@ location-based services.
 ### ALTER ROLE TO NOSUPERUSER
     postgres=# alter role foodtruckuser nosuperuser;
 
-### SAMPLE ".env"
+## SAMPLE ".env"
 
     DATABASE_NAME=foodtruckdb
     DATABASE_USER=foodtruckuser
