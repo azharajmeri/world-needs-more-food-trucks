@@ -1,13 +1,5 @@
 # 🚀 RAKT's "Out-of-the-Box" Engineering Challenge 🌟
 
-Welcome to RAKT's unique and exciting way of discovering new talent. At RAKT, we believe in fun, creativity, and thinking outside the box. This challenge is your playground to showcase your skills in a way that's both enjoyable and insightful.
-
-## 🎉 Why We Do This Differently
-
-- **Enjoy the Process**: We want you to have fun with this challenge. Think of it as a mini-hackathon where your creativity and innovation can shine.
-- **Reflect Real-World Scenarios**: Just like our work at RAKT, this challenge mirrors real-world scenarios but with a twist of fun and creativity.
-- **No Pressure**: Say goodbye to the traditional, high-pressure coding interviews. We're more interested in how you think and create, not just how you code under stress.
-
 ## 🌐 The Problem : World Needs More Food Trucks!
 
 Our team in San Francisco are on a quest to discover the hidden gems of street food, particularly food trucks! Your challenge is to to make it possible for us to find a food truck no matter where our work takes us in the city.
@@ -21,21 +13,48 @@ Feel free to tackle this problem in a way that demonstrates your expertise of an
 San Francisco's food truck open dataset (csv) is included in this [repo](https://raw.githubusercontent.com/RAKT-Innovations/P1-django-take-home-assignment/main/food-truck-data.csv).
 
 
-## 🕹️ Our Approach
-- **Time Commitment:** Dedicate around three hours of focused work to this assignment. Quality matters more to us than quantity, so there's no need to overengineer your solution.
-- **Real-World Simulation:** Treat this task as you would a project intended for production. Create a GitHub repository, use git for version control, and document your project in a README.md file.
-- **Production-Oriented:** Your solution should reflect what you would deliver in a production environment. We understand this might limit the scope within the given time, but we prefer a production-ready approach over a feature-heavy one.
-- **Documentation and Rationale:** Document your technical decisions, trade-offs, and any considerations you had. If you had more time or were to do it again, let us know what you would change or improve.
-- **Flexibility in Tools and Languages:** Please use django as your framework but do not limit yourself to vanilla django, feel free to use everything you'd like on top of it.
+## Setup Instructions
 
-## 📬 How to Submit Your Work
-- **Private Fork:** Instead of forking the public repository, create a copy of it. You can do this by cloning the repository to your local machine and then pushing it as a new **public repository** under your own GitHub account.
-- **Document Your Process:** Include a README.md in your submission detailing how to set up and run your script. This should be unique to your implementation and understanding.
-- **Comment Your Code:** Ensure your script is well-documented with comments that explain your logic and approach. This documentation should reflect your personal problem-solving process.
-- **Email Submission:** Rather than creating a pull request, which is public, send us a link to your public repository via email to developer@rakt.org with the title "[P1-Submission] Your name". Ensure your repo is public so that we can access it.
-- **Deadline:** Please submit your assignment within 5 days of receiving these instructions.
+### Python version is mentioned in runtime.txt
 
-## DATABASE
+1. **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+2. **Run migrations:**
+    ```bash
+    python3 manage.py migrate
+    ```
+
+3. **Import data:**
+    ```bash
+    python3 manage.py import_food_trucks
+    ```
+   This command loads the data into the database from the CSV file.
+
+4. **Run the development server:**
+    ```bash
+    python3 manage.py runserver
+    ```
+
+## Endpoints
+
+- **Frontend endpoint:**
+  
+    http://127.0.0.1:8000/get/food-trucks/?lat=37.7535091222127&lng=-122.4500712081
+
+- **API endpoint:**
+  
+    http://127.0.0.1:8000/api/get/food-trucks/?lat=37.7535091222127&lng=-122.4500712081
+
+
+## DATABASE (Using PostGIS with Django)
+
+PostGIS is an extension for PostgreSQL that provides spatial database capabilities. 
+It allows you to store and query geographic objects and perform spatial operations directly in the database. 
+PostGIS is ideal for applications that require geographic data handling, such as mapping or 
+location-based services.
 
 ### CREATE DATABASE
     postgres=# create database foodtruckdb;
@@ -53,3 +72,12 @@ San Francisco's food truck open dataset (csv) is included in this [repo](https:/
 
 ### ALTER ROLE TO NOSUPERUSER
     postgres=# alter role foodtruckuser nosuperuser;
+
+### SAMPLE ".env"
+
+    DATABASE_NAME=foodtruckdb
+    DATABASE_USER=foodtruckuser
+    DATABASE_PASSWORD=hard@123
+    DATABASE_HOST=localhost
+    DATABASE_PORT=5432
+
