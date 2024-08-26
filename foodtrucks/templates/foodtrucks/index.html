@@ -1,0 +1,62 @@
+{% load static %}
+{% load leaflet_tags %}
+<html>
+    <head>
+        {% leaflet_js %}
+        {% leaflet_css %}
+    </head>
+    <body>
+        <div>
+            {% leaflet_map "main" callback="map_init" %}
+        </div>
+
+        <script type="text/javascript">
+            function map_init(map, options) {
+                // Define custom icons with different colors
+                var specialLocationIcon = L.divIcon({
+                    className: 'special-location-icon',
+                    html: '<div style="background-color: red; width: 20px; height: 20px; border-radius: 50%;"></div>',
+                    iconSize: [20, 20]
+                });
+
+                var foodTruckIcon = L.divIcon({
+                    className: 'food-truck-icon',
+                    html: '<div style="background-color: blue; width: 20px; height: 20px; border-radius: 50%;"></div>',
+                    iconSize: [20, 20]
+                });
+
+                // Extract latitude and longitude from URL
+                var urlParams = new URLSearchParams(window.location.search);
+                var urlLat = parseFloat(urlParams.get('lat'));
+                var urlLng = parseFloat(urlParams.get('lng'));
+
+                // If latitude and longitude are provided, zoom to that location
+                if (!isNaN(urlLat) && !isNaN(urlLng)) {
+                    map.setView([urlLat, urlLng], 12);
+                    L.marker([urlLat, urlLng], { icon: specialLocationIcon }).addTo(map)
+                        .bindPopup('Special Location');
+                } else {
+                    // Default to city location if no URL parameters are found
+                    var cityLon = "{{ city.geometry.x }}";
+                    var cityLat = "{{ city.geometry.y }}";
+
+                    // Zoom to city point & add it to the map
+                    map.setView([cityLat, cityLon], 12);
+                    L.marker([cityLat, cityLon]).addTo(map);
+                }
+
+                // Add food truck markers to the map
+                var foodTrucks = {{ food_trucks|safe }};
+                foodTrucks.forEach(function(truck) {
+                    var lon = truck.longitude;
+                    var lat = truck.latitude;
+                    var name = truck.applicant;
+
+                    // Create a marker for each food truck
+                    L.marker([lat, lon], { icon: foodTruckIcon }).addTo(map)
+                        .bindPopup(name);
+                });
+            }
+        </script>
+    </body>
+</html>

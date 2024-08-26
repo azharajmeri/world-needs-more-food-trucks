@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.gis',
 
     # THIRD PARTY APPS
+    'rest_framework',
+    'leaflet',
 
     # LOCAL APPS
     'foodtrucks.apps.FoodtrucksConfig',

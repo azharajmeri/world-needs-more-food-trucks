@@ -4,6 +4,7 @@ from django.db import models
 
 class FoodTruck(models.Model):
     applicant = models.CharField(max_length=255)
+    cnn = models.CharField(max_length=255)
     facility_type = models.CharField(max_length=100)
     location_description = models.TextField()
     address = models.CharField(max_length=255)

@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from foodtrucks.views import *
+from foodtrucks.views import NearByFoodTruckListAPIView, NearByFoodTruckListTemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('get/food-trucks/', NearByFoodTruckListTemplateView.as_view(), name='near-by-food-trucks-html'),
+    path('api/get/food-trucks/', NearByFoodTruckListAPIView.as_view(), name='near-by-food-trucks'),
 ]

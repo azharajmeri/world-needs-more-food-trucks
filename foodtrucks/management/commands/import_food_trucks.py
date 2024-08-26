@@ -24,9 +24,10 @@ class Command(BaseCommand):
                     'ExpirationDate'] else None
 
                 # Create or update the Location object
-                FoodTruck.objects.update_or_create(
-                    applicant=row['Applicant'],
+                rec, created = FoodTruck.objects.update_or_create(
+                    cnn=row['cnn'],
                     defaults={
+                        'applicant': row['Applicant'],
                         'facility_type': row['FacilityType'],
                         'location_description': row['LocationDescription'],
                         'address': row['Address'],
@@ -39,5 +40,7 @@ class Command(BaseCommand):
                         'expiration_date': expiration_date,
                     }
                 )
+
+                print(rec.cnn, created)
 
         self.stdout.write(self.style.SUCCESS('Successfully imported locations'))
