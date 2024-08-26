@@ -81,3 +81,13 @@ location-based services.
     DATABASE_HOST=localhost
     DATABASE_PORT=5432
 
+## SAMPLE OUTPUT IMAGES
+
+### FRONTEND
+
+![alt text](https://github.com/azharajmeri/world-needs-more-food-trucks/blob/main/images/frontend.png?raw=true)
+
+
+### API
+
+![alt text](https://github.com/azharajmeri/world-needs-more-food-trucks/blob/main/images/api.png?raw=true)
